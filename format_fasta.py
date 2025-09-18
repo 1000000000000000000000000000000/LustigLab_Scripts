@@ -1,9 +1,14 @@
 #!/usr/bin/python
 
-import re
-from pathlib import Path
+''' 
+Description of script:
+This script reformats the defline of FASTA files to allow
+IsUnstruct to work properly.
+
+'''
 
 import re
+from pathlib import Path
 
 RE_ID4_LEADING = re.compile(r'^>([A-Za-z0-9]{4})_')          # >XXXX_
 RE_UNIPROT = re.compile(r'^>\w+\|([A-Za-z0-9]{6,10})\|')     # >db|ACCESSION|...
@@ -105,5 +110,5 @@ if __name__ == "__main__":
 	parser.add_argument("--inplace", action="store_true", help="Edit files in place which overwrites the originals")
 
 	args = parser.parse_args()
-	# Pass parsed values to the parameterized main()
+	# Pass parsed values to main()
 	main(file=args.file, dir=args.dir, chain=args.chain, inplace=args.inplace)
