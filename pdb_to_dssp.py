@@ -54,12 +54,10 @@ def simplify_raw_ss(raw_ss_list):
     # Input list of secondary structure assignments to output a
     # categorized or grouped secondary assignment list
 
-    # DSSP ss conversion loosely taken from table 6 in benjy's thesis where:
+    # DSSP ss conversion taken from table 6 in benjy's thesis where:
     # H, G, I --> Helix (H)
-    # B and E --> Sheet (S)
-    # T, S, ' ' --> Other (O)
-    # '-', C --> Other (O) # Other possible representations of 'Blank' according to DSSP website.
-    # DSSP website claims, PDBFINDER will convert blanks to C so this is to handle this edge case.
+    # E and B --> Sheet (S)
+    # T, S, '-' --> Other (O)
     
     simplified_ss_list = []
     for ss in raw_ss_list:
@@ -67,10 +65,8 @@ def simplify_raw_ss(raw_ss_list):
             simple_ss = 'H'
         if ss == 'E' or ss == 'B':
             simple_ss = 'S'
-        if ss == 'T' or ss == 'S':
+        if ss == 'T' or ss == 'S' or ss == '-':
             simple_ss = 'O'
-        if ss == '-' or ss == ' ' or ss == 'C':
-            simple_ss = 'O' # If a 4-state system including unassigned, change 'O' to 'U' here.
 
         simplified_ss_list.append(simple_ss)
     return(simplified_ss_list)
